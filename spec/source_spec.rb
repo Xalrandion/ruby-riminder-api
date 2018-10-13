@@ -16,10 +16,21 @@ end
 
 RSpec.describe Source , '#get' do
     context "Normal" do
-        it "Return the result of /sources" do
+        it "Return the result of /source" do
             thelper = TestHelper.new()
             api = Riminder.new(thelper.api_key)
             resp = api.source.get thelper.source_id
+            expect(resp).not_to eq(nil)
+        end
+    end
+end
+
+RSpec.describe Source , '#get' do
+    context "Normal with options style" do
+        it "Return the result of /source" do
+            thelper = TestHelper.new()
+            api = Riminder.new(thelper.api_key)
+            resp = api.source.get "source_id" => thelper.source_id
             expect(resp).not_to eq(nil)
         end
     end

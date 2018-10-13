@@ -1,3 +1,4 @@
+require_relative 'requtils.rb'
 
 class Source
     @clientw
@@ -12,9 +13,12 @@ class Source
     end
 
     def get(source_id)
-        query = {
-            "source_id" => source_id
-        }
+        query = {}
+        if (source_id.is_a?(Hash))
+            ReqUtils.add_if_not_blank(query, 'source_id', source_id['source_id'])
+        else
+            query["source_id"] = source_id
+        end
         resp = @clientw.get("source", query)
         return resp['data']
     end
